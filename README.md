@@ -1,70 +1,113 @@
-# NovaCorp Website — Folder Structure Guide
+# NovaCorp — Company & Website Design Overview
 
-## 📁 Project Structure
+---
+
+## 🏢 About NovaCorp
+
+**NovaCorp** is a full-service digital solutions company founded in San Francisco, CA. We partner with startups, scale-ups, and enterprises to design, build, and launch digital products that are fast, beautiful, and built to scale.
+
+We operate across six core disciplines:
+
+| Service | What We Do |
+|---|---|
+| **Web Development** | Custom full-stack web apps using React, Next.js, and Node.js |
+| **Mobile Apps** | Cross-platform iOS & Android with React Native |
+| **Cloud & DevOps** | AWS / GCP / Azure architecture, CI/CD, Kubernetes |
+| **AI Integration** | LLM pipelines, computer vision, ML-powered automation |
+| **UI/UX Design** | Brand identity, design systems, Figma specs |
+| **Digital Marketing** | SEO audits, content strategy, performance campaigns |
+
+**Headquarters:** 340 Pine St, Suite 800, San Francisco, CA 94104
+**Contact:** hello@novacorp.io · +1 (800) 555-0192
+**Hours:** Monday – Friday, 9 AM – 6 PM PST
+
+---
+
+## 🎨 Website Design Overview
+
+### Visual Identity
+
+The NovaCorp website uses a **dark luxury** aesthetic — deep charcoal backgrounds with warm gold accents, conveying premium quality and technical sophistication.
+
+| Design Token | Value | Purpose |
+|---|---|---|
+| `--bg` | `#0d0d0f` | Page background |
+| `--surface` | `#141418` | Cards, sidebar, topbar |
+| `--surface2` | `#1c1c22` | Hover states, inputs |
+| `--accent` | `#e8c96d` | Primary gold — CTAs, active states |
+| `--accent2` | `#f0a05a` | Warm orange — gradient partner |
+| `--text` | `#e8e8f0` | Body text |
+| `--muted` | `#7a7a90` | Labels, secondary text |
+
+### Typography
+
+- **Playfair Display** (Google Fonts) — headings, logo, stat numbers. Gives a refined, editorial feel.
+- **DM Sans** (Google Fonts) — body copy, labels, buttons. Clean and highly legible at small sizes.
+
+### Layout
+
+The site uses a **fixed sidebar + main content** split layout:
+
+```
+┌─────────────────────────────────────────────────┐
+│  SIDEBAR (260px fixed)  │  TOPBAR (60px tall)   │
+│  ─ Logo                 ├───────────────────────│
+│  ─ Nav links            │                       │
+│  ─ Quick stats          │   PAGE CONTENT        │
+│  ─ User profile         │   (scrollable)        │
+└─────────────────────────┴───────────────────────┘
+```
+
+- Sidebar is **fixed width** (`260px`) and never scrolls
+- Main content area is **fluid** and fills the rest of the viewport
+- Content area scrolls independently — sidebar always stays visible
+
+### Pages
+
+| Page | File | Description |
+|---|---|---|
+| Home | `index.html` | Hero banner, stats row, features grid |
+| Services | `pages/services.html` | 6 service cards with pricing |
+| Portfolio | `pages/portfolio.html` | 6 project showcase cards |
+| Contact | `pages/contact.html` | Contact details + enquiry form |
+
+---
+
+## 📁 Folder Structure
 
 ```
 novacorp/
 │
-├── index.html              ← Home page (entry point)
+├── index.html              ← Home page (open this to launch the site)
 │
-├── pages/                  ← All other HTML pages live here
+├── pages/                  ← One .html file per page
 │   ├── services.html
 │   ├── portfolio.html
 │   └── contact.html
 │
-├── css/                    ← All stylesheets
-│   ├── styles.css          ← Shared layout & component styles (sidebar, topbar, buttons…)
-│   └── pages.css           ← Page-specific styles (hero, cards, forms…)
+├── css/
+│   ├── styles.css          ← Global styles: sidebar, topbar, buttons, colors, fonts
+│   └── pages.css           ← Page-specific styles: hero, cards, forms, grids
 │
-└── js/                     ← All JavaScript
-    └── main.js             ← Shared logic (active nav highlight, form handler…)
+├── js/
+│   └── main.js             ← Shared JS: auto active-nav, contact form handler
+│
+└── README.md               ← You are here
 ```
 
----
+### What goes where
 
-## 🔗 How Path Links Work
-
-| File location        | Link to CSS            | Link to JS            | Link to other pages        |
-|----------------------|------------------------|-----------------------|----------------------------|
-| `index.html` (root)  | `css/styles.css`       | `js/main.js`          | `pages/services.html`      |
-| `pages/*.html`       | `../css/styles.css`    | `../js/main.js`       | `portfolio.html` (sibling) |
-
-> **Rule:** Every time you go one folder deeper, add `../` before the path.
+- **`css/styles.css`** — touch this for anything that appears on every page (sidebar, topbar, buttons, color variables, typography)
+- **`css/pages.css`** — touch this for styles that only appear on one specific page (the hero banner, portfolio grid, contact form, etc.)
+- **`js/main.js`** — touch this for any JavaScript behaviour shared across all pages
 
 ---
 
-## ➕ How to Add a New Page
+## 🚀 Running the Site
 
-1. Create `pages/yourpage.html`
-2. Copy the sidebar block from any existing page — it's identical on all pages
-3. Add a new `<a class="nav-item">` entry pointing to `yourpage.html` in **every** page's sidebar
-4. Add any new CSS classes to `css/pages.css`
-5. Add any new JS functions to `js/main.js`
+Open `index.html` directly in any browser — no server or build step required.
 
----
-
-## 🎨 How to Add New CSS
-
-- **Affects all pages** (layout, colors, buttons) → edit `css/styles.css`
-- **Affects one specific page** (a unique card, section, widget) → add to `css/pages.css` with a comment header
-
----
-
-## 📝 How the Active Nav Works
-
-`js/main.js` reads `window.location.pathname` on every page load and automatically
-adds the `.active` class to whichever sidebar link matches the current file name.
-You don't need to add `active` manually to the HTML.
-
----
-
-## 🚀 How to Open Locally
-
-Just open `index.html` in your browser directly — no server needed.
-All links are relative, so navigation works out of the box.
-
-If you want live-reload during development, use VS Code's **Live Server** extension
-or run:
-```
+For live-reload during development, use **VS Code Live Server** or run:
+```bash
 npx serve .
 ```
